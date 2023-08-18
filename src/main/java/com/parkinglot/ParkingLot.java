@@ -9,7 +9,7 @@ public class ParkingLot {
 
     public ParkingTicket park(Car car) {
         if (parkedCar.size() >= MAX_CAPACITY) {
-            return null;
+            throw new UnavailableParkingLotException();
         }
 
         ParkingTicket ticket = new ParkingTicket();
@@ -18,11 +18,8 @@ public class ParkingLot {
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
-        Car fetchedCar = parkedCar.get(parkingTicket);
-
-        if (fetchedCar != null) {
-            parkedCar.remove(parkingTicket);
-        }
-        return fetchedCar;
+        if (parkedCar.get(parkingTicket) == null )
+            throw new UnrecognizedTicketException();
+        return parkedCar.remove(parkingTicket);
     }
 }

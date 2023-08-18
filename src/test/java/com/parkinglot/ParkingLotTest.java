@@ -52,9 +52,11 @@ public class ParkingLotTest {
      ParkingTicket wrongParkingTicket = new ParkingTicket();
      parkingLot.park(car);
      //when
-     Car fetchedCar = parkingLot.fetch(wrongParkingTicket);
      //then
-        assertNull(fetchedCar);
+        UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class, () -> {
+            parkingLot.fetch(wrongParkingTicket);
+        });
+        assertEquals("Unrecognized parking ticket.", unrecognizedTicketException.getMessage());
     }
 
     @Test
@@ -65,9 +67,11 @@ public class ParkingLotTest {
         ParkingTicket parkingTicket = parkingLot.park(car);
         parkingLot.fetch(parkingTicket);
      //when
-        Car fetchedCar = parkingLot.fetch(parkingTicket);
      //then
-        assertNull(fetchedCar);
+        UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class, () -> {
+            Car fetchedCar = parkingLot.fetch(parkingTicket);
+        });
+        assertEquals("Unrecognized parking ticket.", unrecognizedTicketException.getMessage());
     }
     
     @Test
@@ -79,9 +83,11 @@ public class ParkingLotTest {
             parkingLot.park(new Car());
         }
         // When
-        parkingLot.park(car);
+        UnavailableParkingLotException unavailableParkingLotException = assertThrows(UnavailableParkingLotException.class, () -> {
+           parkingLot.park(car);
+        });
         // Then
-        assertNull(null);
+        assertEquals("No available position.", unavailableParkingLotException.getMessage());
     }
 }
 
