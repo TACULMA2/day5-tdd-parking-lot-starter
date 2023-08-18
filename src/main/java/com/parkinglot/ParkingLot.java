@@ -4,14 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ParkingLot {
-//    private Car car;
+    public static final int MAX_CAPACITY = 10;
     private Map<ParkingTicket, Car> parkedCar = new HashMap<>();
 
     public ParkingTicket park(Car car) {
+        if (parkedCar.size() >= MAX_CAPACITY) {
+            return null;
+        }
+
         ParkingTicket ticket = new ParkingTicket();
         parkedCar.put(ticket, car);
-//        this.car = car;
-//        return new ParkingTicket();
         return ticket;
     }
 
@@ -19,10 +21,8 @@ public class ParkingLot {
         Car fetchedCar = parkedCar.get(parkingTicket);
 
         if (fetchedCar != null) {
-            parkedCar.remove(parkingTicket); // Remove the used parking ticket
+            parkedCar.remove(parkingTicket);
         }
-
         return fetchedCar;
-//        return parkedCar.get(parkingTicket);
     }
 }

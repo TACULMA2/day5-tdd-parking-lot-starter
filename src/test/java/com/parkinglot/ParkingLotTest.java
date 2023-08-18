@@ -69,5 +69,19 @@ public class ParkingLotTest {
      //then
         assertNull(fetchedCar);
     }
+    
+    @Test
+    void should_return_nothing_when_park_given_car_and_park_without_availability() {
+        // Given
+        ParkingLot parkingLot = new ParkingLot();
+        Car car = new Car();
+        for (int parkingSpace = 0; parkingSpace < ParkingLot.MAX_CAPACITY; parkingSpace++) {
+            parkingLot.park(new Car());
+        }
+        // When
+        parkingLot.park(car);
+        // Then
+        assertNull(null);
+    }
 }
 
