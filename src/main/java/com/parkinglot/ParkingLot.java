@@ -18,7 +18,7 @@ public class ParkingLot {
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
-        if (parkedCar.get(parkingTicket) == null )
+        if (parkedCar.get(parkingTicket) == null)
             throw new UnrecognizedTicketException();
         return parkedCar.remove(parkingTicket);
     }
