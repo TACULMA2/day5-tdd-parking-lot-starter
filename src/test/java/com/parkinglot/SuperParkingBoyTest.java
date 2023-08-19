@@ -9,10 +9,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class SuperParkingBoyTest {
     @Test
-    void should_park_to_first_parking_lot_when_park_given_a_super_parking_boy_and_two_parking_lots_and_a_car() {
+    void should_park_to_parking_lot_with_highest_available_rate_when_park_given_super_parking_boy_and_two_parking_lots_and_car() {
         //given
-        ParkingLot firstParkingLot = new ParkingLot(17); // 17/20 = 0.85
-        ParkingLot secondParkingLot = new ParkingLot(18); // 18/20 = 0.9 this should where super parking boy park
+        ParkingLot firstParkingLot = new ParkingLot(8);
+        ParkingLot secondParkingLot = new ParkingLot(9);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
         SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLots);
         Car car = new Car();
@@ -20,7 +20,23 @@ public class SuperParkingBoyTest {
         ParkingTicket parkingTicket = superParkingBoy.park(car);
         //then
         assertNotNull(parkingTicket);
-        assertEquals(17, firstParkingLot.getAvailableCapacity());
-        assertEquals(17, secondParkingLot.getAvailableCapacity());
+        assertEquals(8, firstParkingLot.getAvailableCapacity());
+        assertEquals(8, secondParkingLot.getAvailableCapacity());
+    }
+
+    @Test
+    void should_car_will_be_park_at_second_parking_lot_when_park_given_a_super_boy_and_two_parking_lots_first_is_full_second_available() {
+        //given
+        ParkingLot firstParkingLot = new ParkingLot(0);
+        ParkingLot secondParkingLot = new ParkingLot();
+        List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
+        SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLots);
+        Car car = new Car();
+        //when
+        ParkingTicket parkingTicket = superParkingBoy.park(car);
+        //then
+        assertNotNull(parkingTicket);
+        assertEquals(0, firstParkingLot.getAvailableCapacity());
+        assertEquals(9, secondParkingLot.getAvailableCapacity());
     }
 }

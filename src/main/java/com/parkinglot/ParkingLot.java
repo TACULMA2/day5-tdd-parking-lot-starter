@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ParkingLot {
-    public static final int MAX_CAPACITY = 20;
+    public static final int MAX_CAPACITY = 10;
     private final int capacity;
     Map<ParkingTicket, Car> parkedCar = new HashMap<>();
 
@@ -30,7 +30,6 @@ public class ParkingLot {
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
-//        Car car = parkedCar.remove(parkingTicket);
         if (!parkedCar.containsKey(parkingTicket)) {
             throw new UnrecognizedTicketException();
         }
@@ -41,8 +40,8 @@ public class ParkingLot {
         return capacity - parkedCar.size();
     }
 
-    public int getTotalCapacity() {
-        return getAvailableCapacity()/capacity;
+    public double getRate() {
+        return (double) getAvailableCapacity() / capacity;
     }
 
     public boolean hasAvailableCapacity() {

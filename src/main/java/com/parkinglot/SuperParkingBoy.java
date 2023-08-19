@@ -12,15 +12,11 @@ public class SuperParkingBoy {
 
     public ParkingTicket park(Car car) {
         ParkingLot parkingLotWithHighestAvailableRate = parkingLots.stream()
-                .max(Comparator.comparingDouble(this::calculateAvailableRate))
+                .filter(ParkingLot::hasAvailableCapacity)
+                .sorted(Comparator.comparingInt(ParkingLot::getAvailableCapacity).reversed())
+                .findFirst()
                 .orElseThrow(UnavailableParkingLotException::new);
         return parkingLotWithHighestAvailableRate.park(car);
     }
 
-    private double calculateAvailableRate(ParkingLot parkingLot) {
-        double totalCapacity = parkingLot.getTotalCapacity();
-        double availableCapacity = parkingLot.getAvailableCapacity();
-        double rate = availableCapacity / totalCapacity;
-        return rate;
-    }
 }
