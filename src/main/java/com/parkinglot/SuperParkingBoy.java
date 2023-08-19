@@ -19,4 +19,13 @@ public class SuperParkingBoy {
         return parkingLotWithHighestAvailableRate.park(car);
     }
 
+    public Car fetch(ParkingTicket parkingTicket) {
+        for (ParkingLot parkingLot : parkingLots) {
+            try {
+                return parkingLot.fetch(parkingTicket);
+            } catch (UnrecognizedTicketException ignored) {
+            }
+        }
+        throw new UnrecognizedTicketException();
+    }
 }
