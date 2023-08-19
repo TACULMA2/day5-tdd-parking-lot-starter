@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SuperParkingBoyTest {
     @Test
@@ -61,5 +60,23 @@ public class SuperParkingBoyTest {
         assertEquals(car2, fetchedCar2);
         assertEquals(10, firstParkingLot.getAvailableCapacity());
         assertEquals(10, secondParkingLot.getAvailableCapacity());
+    }
+
+    @Test
+    void should_return_UnrecognizedParkingTicket_when_fetch_given_smart_parking_boy_two_parking_lots_unrecognized_ticket() {
+        //given
+        ParkingLot firstParkingLot = new ParkingLot();
+        ParkingLot secondParkingLot = new ParkingLot();
+        List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
+        SuperParkingBoy superParkingBoy = new SuperParkingBoy(parkingLots);
+        Car car = new Car();
+        ParkingTicket wrongParkingTicket = new ParkingTicket();
+        superParkingBoy.park(car);
+        //when
+        //then
+        UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class, () -> {
+            superParkingBoy.fetch(wrongParkingTicket);
+        });
+        assertEquals("Unrecognized parking ticket.", unrecognizedTicketException.getMessage());
     }
 }
