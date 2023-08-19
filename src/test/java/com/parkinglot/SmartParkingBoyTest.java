@@ -4,12 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SmartParkingBoyTest {
     @Test
-    void should_park_to_first_parking_lot_when_park_given_a_standard_parking_boy_and_two_parking_lots_and_a_car() {
+    void should_park_to_first_parking_lot_when_park_given_a_smart_parking_boy_and_two_parking_lots_and_a_car() {
         //given
         ParkingLot firstParkingLot = new ParkingLot(9);
         ParkingLot secondParkingLot = new ParkingLot(20);
@@ -25,7 +24,7 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    void should_car_will_be_park_at_second_parking_lot_when_park_given_a_standard_boy_and_two_parking_lots_first_is_full_second_available() {
+    void should_car_will_be_park_at_second_parking_lot_when_park_given_a_smart_boy_and_two_parking_lots_first_is_full_second_available() {
         //given
         ParkingLot firstParkingLot = new ParkingLot(0);
         ParkingLot secondParkingLot = new ParkingLot();
@@ -41,7 +40,7 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    void should_return_right_car_when_fetch_car_twice_given_standard_parking_boy_two_parking_ticket() {
+    void should_return_right_car_when_fetch_car_twice_given_smart_parking_boy_two_parking_ticket() {
         //given
         ParkingLot firstParkingLot = new ParkingLot();
         ParkingLot secondParkingLot = new ParkingLot();
@@ -61,6 +60,24 @@ public class SmartParkingBoyTest {
         assertEquals(car2, fetchedCar2);
         assertEquals(10, firstParkingLot.getAvailableCapacity());
         assertEquals(10, secondParkingLot.getAvailableCapacity());
+    }
+
+    @Test
+    void should_return_UnrecognizedParkingTicket_when_fetch_given_smart_parking_boy_two_parking_lots_unrecognized_ticket() {
+        //given
+        ParkingLot firstParkingLot = new ParkingLot();
+        ParkingLot secondParkingLot = new ParkingLot();
+        List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+        Car car = new Car();
+        ParkingTicket wrongParkingTicket = new ParkingTicket();
+        smartParkingBoy.park(car);
+        //when
+        //then
+        UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class, () -> {
+            smartParkingBoy.fetch(wrongParkingTicket);
+        });
+        assertEquals("Unrecognized parking ticket.", unrecognizedTicketException.getMessage());
     }
 
 }
