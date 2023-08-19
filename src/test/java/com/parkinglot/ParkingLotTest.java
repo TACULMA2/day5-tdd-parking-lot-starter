@@ -62,7 +62,7 @@ public class ParkingLotTest {
     @Test
     void should_return_unrecognizedTicketException_when_fetch_given_used_parking_ticket() {
         //given
-        ParkingLot parkingLot = new ParkingLot(0);
+        ParkingLot parkingLot = new ParkingLot();
         Car car = new Car();
         ParkingTicket parkingTicket = parkingLot.park(car);
         parkingLot.fetch(parkingTicket);
@@ -77,12 +77,13 @@ public class ParkingLotTest {
     @Test
     void should_return_unavailableParkingLotException_when_park_given_car_and_park_without_availability() {
         // Given
-        ParkingLot parkingLot = new ParkingLot(0);
-        Car car = new Car();
-        parkingLot.park(car);
+        ParkingLot parkingLot = new ParkingLot(1);
+        Car newCar = new Car();
+        Car parkedCar = new Car();
+        parkingLot.park(parkedCar);
         // When
         UnavailableParkingLotException unavailableParkingLotException = assertThrows(UnavailableParkingLotException.class, () -> {
-            parkingLot.park(car);
+            parkingLot.park(newCar);
         });
         // Then
         assertEquals("No available position.", unavailableParkingLotException.getMessage());
