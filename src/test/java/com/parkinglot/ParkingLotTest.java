@@ -17,7 +17,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    void should_return_car_when_fetch_given_parking_lot_and_ticket() {
+    void should_return_car_when_fetch_the_car_given_parking_lot_and_ticket() {
         //given
         ParkingLot parkingLot = new ParkingLot();
         Car car = new Car();
@@ -29,7 +29,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    void should_return_the_right_car_when_fetch_car_given_two_different_tickets() {
+    void should_return_the_right_car_when_fetch_the_car_given_two_different_tickets() {
         //given
         ParkingLot parkingLot = new ParkingLot();
         Car car1 = new Car();
@@ -45,7 +45,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    void should_return_unrecognizedTicketException_when_fetch_given_parking_lot_wrong_parking_ticket() {
+    void should_return_unrecognizedTicketException_when_fetch_the_car_given_parking_lot_and_wrong_parking_ticket() {
         //given
         ParkingLot parkingLot = new ParkingLot();
         Car car = new Car();
@@ -60,7 +60,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    void should_return_unrecognizedTicketException_when_fetch_given_used_parking_ticket() {
+    void should_return_unrecognizedTicketException_when_fetch_the_car_given_used_parking_ticket() {
         //given
         ParkingLot parkingLot = new ParkingLot();
         Car car = new Car();
@@ -75,7 +75,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    void should_return_unavailableParkingLotException_when_park_given_car_and_park_without_availability() {
+    void should_return_unavailableParkingLotException_when_park_the_car_given_car_and_park_without_availability() {
         // Given
         ParkingLot parkingLot = new ParkingLot(1);
         Car newCar = new Car();
