@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ParkingLot {
-    public static final int MAX_CAPACITY = 10;
+    public static final int MAX_CAPACITY = 20;
     private final int capacity;
     Map<ParkingTicket, Car> parkedCar = new HashMap<>();
 
@@ -39,6 +39,10 @@ public class ParkingLot {
 
     public int getAvailableCapacity() {
         return capacity - parkedCar.size();
+    }
+
+    public int getTotalCapacity() {
+        return getAvailableCapacity()/capacity;
     }
 
     public boolean hasAvailableCapacity() {
